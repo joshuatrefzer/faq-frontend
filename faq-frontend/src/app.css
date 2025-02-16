@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  --background: rgb(28, 27, 35);
+  --input-color:rgb(39, 38, 44);
+  --red: rgb(189, 0, 64);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-rgb: 0, 0, 0;
+    --foreground-rgb: 255, 255, 255;
+  }
+}
+
+body {
+  background: linear-gradient(rgb(87, 87, 87) , var(--background)) ;
+  color: rgb(var(--foreground-rgb));
+}
+
+button {
+  background-color: var(--red);
+}
+
+input {
+  background-color: var(--input-color);
+  border-radius: 20px;
+  padding: 10px;
+  width: 80%;
+  color: white;
+  border: 2px solid var(--background);
+  opacity: 0.8;
+}
+
+input::placeholder {
+  color: rgb(191, 191, 191);
+}
+
+input:focus {
+  transition: all 200ms ease-in-out;
+  border: 2px solid rgb(199, 199, 199);
+  outline: none;
+  opacity: 1;
+
+}
+
+
+.selected-link {
+  border-bottom: 1px solid var(--red);
+}
+
+nav {
+  display: none;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+}
+
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

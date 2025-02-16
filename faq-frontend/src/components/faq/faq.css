@@ -1,0 +1,27 @@
+.faq-container {
+    height: 100dvh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 1fr 4fr;
+    align-items: center;
+    justify-items: center;
+    color: white;
+    animation: appear 500ms ease-in-out;
+}
+
+strong {
+    font-size: larger;
+    font-weight: 500;
+}
+
+p {
+    text-align: center;
+}
+
+.solution-container {
+    height: 100%;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    padding: 20px;
+}
