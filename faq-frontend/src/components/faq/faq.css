@@ -20,7 +20,8 @@ p {
 }
 
 .solution-container {
-    height: 100%;
+    height: calc(100% - 20px);
+    margin-bottom: 20px;
     overflow-y: scroll;
     box-sizing: border-box;
     padding: 20px;

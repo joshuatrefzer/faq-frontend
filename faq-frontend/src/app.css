@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: rgb(28, 27, 35);
-  --input-color:rgb(39, 38, 44);
+  --background: rgb(21, 20, 27);
+  --input-color:rgb(93, 92, 95);
   --red: rgb(189, 0, 64);
 }
 
@@ -22,21 +22,21 @@ button {
   background-color: var(--red);
 }
 
-input {
+input, textarea {
   background-color: var(--input-color);
   border-radius: 20px;
   padding: 10px;
   width: 80%;
   color: white;
-  border: 2px solid var(--background);
+  border: 2px solid rgb(164, 164, 164);
   opacity: 0.8;
 }
 
-input::placeholder {
+input::placeholder , textarea::placeholder {
   color: rgb(191, 191, 191);
 }
 
-input:focus {
+input:focus , textarea:focus {
   transition: all 200ms ease-in-out;
   border: 2px solid rgb(199, 199, 199);
   outline: none;
@@ -56,6 +56,25 @@ nav {
 #app {
   display: flex;
   justify-content: center;
+}
+
+button {
+  padding: 5px 20px;
+  border-radius: 20px;
+  border: 2px solid white;
+  color: white;
+  background-color: unset;
+  transition: all ease-in-out 200ms;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: white;
+  color: black;
+}
+
+button:active {
+  opacity: 0.8;
 }
 
 
