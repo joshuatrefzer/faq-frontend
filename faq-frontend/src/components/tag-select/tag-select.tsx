@@ -35,7 +35,7 @@ export default function TagSelect(props: { onSelect: (tag: { id: number, tagname
     <div class="tag-select-container">
       <input
         type="text"
-        placeholder="Search.."
+        placeholder="Gebe Schlagwörter ein"
         id="myInput"
         onKeyUp={filterFunction}
       />

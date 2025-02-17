@@ -4,6 +4,7 @@
   --background: rgb(21, 20, 27);
   --input-color:rgb(93, 92, 95);
   --red: rgb(189, 0, 64);
+  --green: rgb(105, 147, 123);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -75,6 +76,10 @@ button:hover {
 
 button:active {
   opacity: 0.8;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 
