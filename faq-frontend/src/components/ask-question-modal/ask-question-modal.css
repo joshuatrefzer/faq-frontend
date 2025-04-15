@@ -1,0 +1,50 @@
+.modal-backdrop {
+    animation: appear 500ms ease-in-out;
+    position: fixed;
+    inset: 0;
+    background: rgba(31, 31, 31, 0.378);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    gap: 30px;
+  }
+  
+  .modal {
+    background: rgb(14, 14, 14);
+    padding: 25px;
+    border-radius: 20px;
+    width: 90%;
+    height: auto;
+    max-width: 500px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 200;
+    letter-spacing: 2px;
+  }
+  
+  
+  .question-textarea {
+    width: 100%;
+    height: 300px;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+  }
+  
+ 

@@ -2,19 +2,20 @@ import { createSignal, createResource, onCleanup } from "solid-js";
 import "./home.css";
 import SearchResult from "../search-result/search-result";
 import { A } from "@solidjs/router";
-import Loader from "../loader/loader";
+import AskQuestionModal from "../ask-question-modal/ask-question-modal";
 
 export type FAQ = {
   id: number;
   question: string;
   answer: string;
-  tags?: string[]
+  tags?: string[];
 };
 
-
-async function fetchFaqs(query: string) {
+async function fetchFaqs(query: string): Promise<FAQ[]> {
   if (!query) return [];
-  const response = await fetch(`http://joshuatrefzer-backend.com:8080/faq/search?query=${encodeURIComponent(query)}`);
+  const response = await fetch(
+    `http://joshuatrefzer-backend.com:8080/faq/search?query=${encodeURIComponent(query)}`
+  );
   if (response.status === 204) return [];
   return response.json();
 }
@@ -22,6 +23,8 @@ async function fetchFaqs(query: string) {
 export default function Home() {
   const [query, setQuery] = createSignal("");
   const [debouncedQuery, setDebouncedQuery] = createSignal("");
+  const [isLoading, setIsLoading] = createSignal(false);
+  const [showModal, setShowModal] = createSignal(false);
 
   let timeout: ReturnType<typeof setTimeout>;
 
@@ -30,14 +33,23 @@ export default function Home() {
     setQuery(value);
 
     clearTimeout(timeout);
+
+    if (value.trim()) {
+      setIsLoading(true); // Start Loader
+    }
+
     timeout = setTimeout(() => {
       setDebouncedQuery(value);
-    }, 300);
+    }, 800);
   };
 
-  onCleanup(() => clearTimeout(timeout)); 
+  onCleanup(() => clearTimeout(timeout));
 
-  const [faqs] = createResource(debouncedQuery, fetchFaqs);
+  const [faqs] = createResource(debouncedQuery, async (query) => {
+    const data = await fetchFaqs(query);
+    setIsLoading(false); // Stop Loader when data is ready
+    return data;
+  });
 
   return (
     <div class="container">
@@ -50,19 +62,28 @@ export default function Home() {
       />
 
       <div class="search-result-container">
-        {faqs.loading && <p>laden..</p>}
+        {isLoading() && <p>laden <span class="loading-points" >...</span></p>}
 
-        {faqs()?.length > 0 &&
-          faqs().map((faq:FAQ) => (
+        {!isLoading() && (faqs() ?? []).length > 0 &&
+          faqs()!.map((faq) => (
             <A class="faq-link" href={`/faq/${faq.id}`}>
               <SearchResult text={faq.question} />
             </A>
-          ))}
+          ))
+        }
 
-        {!faqs.loading && faqs()?.length === 0 && query() && (
-          <div>Keine Ergebnisse gefunden.</div>
+        {!isLoading() && faqs()?.length === 0 && query().trim() && (
+          <div class="send-question">
+            <p>
+              Leider haben wir dafür noch keine Antwort <br />
+              Formuliere die Frage bitte klar aus, dann werden wir sie hier in Zukunft beantworten.
+            </p>
+            <button onClick={() => setShowModal(true)}>Frage stellen</button>
+          </div>
         )}
       </div>
+
+      {showModal() && <AskQuestionModal onClose={() => setShowModal(false)} />}
     </div>
   );
 }
