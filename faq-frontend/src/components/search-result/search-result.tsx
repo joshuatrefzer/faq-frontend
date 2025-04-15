@@ -1,8 +1,12 @@
 
-export default function SearchResult() {
+interface SearchResultProps {
+    text: string;
+  }
+  
+  export default function SearchResult(props: SearchResultProps) {
     return (
-        <div class="search-result">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam nobis vero, sunt ullam eveniet, laudantium eius ut totam veritatis cupiditate numquam vitae vel consectetur eum necessitatibus optio. Aspernatur, sed ipsa.</p>
-        </div>
+      <div class="search-result">
+        <p>{props.text}</p>
+      </div>
     );
-}
+  }

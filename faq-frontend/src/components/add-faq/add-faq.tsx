@@ -1,8 +1,20 @@
 import TagSelect from "../tag-select/tag-select";
 import "../../app.css"
 import "./add-faq.css"
+import { createEffect } from "solid-js";
+import { authStore } from "~/stores/AuthStore";
+import { useNavigate } from "@solidjs/router";
 
 export default function AddFAQ() {
+
+    const navigate = useNavigate()
+
+    createEffect(() => {
+        if (!authStore.userIsLoggedIn()) {
+            navigate("/admin/auth");
+        }
+    });
+    
     return (
         <form class="grid-container">
             <h1>FAQ erstellen</h1>

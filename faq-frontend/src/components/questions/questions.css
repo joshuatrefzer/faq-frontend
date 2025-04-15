@@ -27,6 +27,10 @@
     align-items: center;
 }
 
+button {
+    font-size: 12px;
+}
+
 .admin-route-wrapper {
     align-items: start !important;
 }

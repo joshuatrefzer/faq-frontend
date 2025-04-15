@@ -1,12 +1,20 @@
+import { useNavigate } from "@solidjs/router";
 import "./questions.css"
+import { createEffect } from "solid-js";
+import { authStore } from "~/stores/AuthStore";
+import { dataStore } from "~/stores/DataStore";
 
 export default function Questions() {
 
-    const questions = [
-        { question: "Was ist der Sinn des Lebens?", createdAt: "2025-04-13" },
-        { question: "Wie funktioniert SolidJS?", createdAt: "2025-04-12" },
-        { question: "Was ist der Unterschied zwischen Signal und Store?", createdAt: "2025-04-10" },
-    ];
+    const navigate = useNavigate()
+
+    createEffect(() => {
+        if (!authStore.userIsLoggedIn()) {
+            navigate("/admin/auth");
+        }
+    });
+
+  
 
     function transformDate(dateString: string) {
         const date = new Date(dateString);
@@ -17,7 +25,7 @@ export default function Questions() {
             timeZone: "Europe/Berlin"
         });
     }
-    
+
 
     return (
         <div class="admin-route-wrapper items-start ">
@@ -30,20 +38,32 @@ export default function Questions() {
                     </tr>
                 </thead>
                 <tbody>
-                    {questions.map((q) => (
+                    {dataStore.state.questions.length > 0 ? (
+                        dataStore.state.questions.map((q) => (
+                            <tr>
+                                <td style={{ width: "70%" }}>{q.question}</td>
+                                <td>{transformDate(q.createdAt)}</td>
+                                <td class="button-cell">
+                                    <button
+                                        class="faq-button"
+                                        onClick={() => console.log("FAQ erstellen für:", q.question)}
+                                    >
+                                        FAQ erstellen
+                                    </button>
+                                    <button
+                                        class="faq-button"
+                                        onClick={() => console.log("Frage Löschen:", q.question)}
+                                    >
+                                        Frage Löschen
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
                         <tr>
-                            <td style={{ width: "70%" }}>{q.question}</td>
-                            <td>{transformDate(q.createdAt)}</td>
-                            <td class="button-cell">
-                                <button class="faq-button" onClick={() => console.log("FAQ erstellen für:", q.question)}>
-                                    FAQ erstellen
-                                </button>
-                                <button class="faq-button" onClick={() => console.log("FAQ erstellen für:", q.question)}>
-                                  Frage Löschen
-                                </button>
-                            </td>
+                            <td colSpan={3}>Keine Fragen verfügbar</td>
                         </tr>
-                    ))}
+                    )}
                 </tbody>
             </table>
         </div>

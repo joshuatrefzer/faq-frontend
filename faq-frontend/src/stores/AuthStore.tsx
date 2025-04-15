@@ -1,4 +1,5 @@
 import { createStore } from "solid-js/store";
+import { dataStore } from "./DataStore";
 
 const [state, setState] = createStore({
     token: null as string | null,
@@ -6,6 +7,29 @@ const [state, setState] = createStore({
     error: null as string | null,
     success: false
 });
+
+
+async function signUp(username: string, password: string) {
+    setState({ loading: true, error: null, success: false });
+    try {
+        const res = await fetch("http://joshuatrefzer-backend.com:8080/auth/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            setState({ success: true });
+        } else {
+            throw new Error("Signup fehlgeschlagen");
+        }
+    } catch (err) {
+        setState({ error: (err as Error).message });
+    } finally {
+        setState({ loading: false });
+    }
+}
 
 async function login(username: string, password: string) {
     setState({ loading: true, error: null, success: false });
@@ -23,7 +47,9 @@ async function login(username: string, password: string) {
                 token: data.token,
                 success: true
             });
-            localStorage.setItem("token", data.token);
+
+            await dataStore.loadAllData();
+
         } else {
             throw new Error("Login fehlgeschlagen");
         }
@@ -36,16 +62,22 @@ async function login(username: string, password: string) {
 
 function logout() {
     setState({ token: null, success: false });
-    localStorage.removeItem("token");
+    dataStore.reset();
 }
 
 function getToken() {
-    return state.token || localStorage.getItem("token");
+    return state.token;
+}
+
+function userIsLoggedIn(): boolean {
+    return !!getToken();
 }
 
 export const authStore = {
     state,
     login,
     logout,
-    getToken
+    signUp,
+    getToken,
+    userIsLoggedIn
 };
