@@ -4,9 +4,11 @@ import Loader from "../loader/loader";
 import "./faq.css"
 
 export default function FAQ() {
+
+
     return (
       <div class="faq-container">
-        {/* <Loader></Loader> */}
+        <Loader></Loader>
 
         <div class="w-full"><BackButton></BackButton></div>
         

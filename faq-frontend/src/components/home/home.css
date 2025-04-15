@@ -1,5 +1,6 @@
 .container {
     height: 100dvh;
+    overflow: hidden;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -20,7 +21,7 @@
     align-items: center;
 }
 
-.link {
+.faq-link {
     margin-bottom: 20px;
     width: 80%;
     max-width: 600px;
@@ -31,6 +32,8 @@
     box-shadow: 1px 1px 5px rgb(54, 54, 54);
     box-sizing: border-box;
     padding: 8px;
+    letter-spacing: normal;
+    border: none;
 }
 
 .search-input {

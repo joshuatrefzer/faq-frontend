@@ -1,0 +1,41 @@
+.card {
+    height: fit-content;
+    min-width: 500px;
+    box-sizing: border-box;
+    padding: 50px;
+    width: fit-content;
+    background-color: rgb(23, 23, 23);
+    border-radius: 20px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.597);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card input {
+    width: 100%;
+}
+
+.display-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+}
+
+p {
+    color: white;
+    font-size: 12px;
+    font-weight: 200;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-weight: 200;
+    font-size: 30px;
+    color: white;
+}

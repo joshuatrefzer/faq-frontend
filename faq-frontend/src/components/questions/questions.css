@@ -1,0 +1,32 @@
+.question-table {
+    margin-top: 50px;
+    width: 90%;
+    border-collapse: collapse;
+    color: white;
+    border-radius: 20px;
+}
+
+.question-table th,
+.question-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.question-table th {
+    background-color: #222222;
+}
+
+.admin-route-wrapper {
+    align-items: start !important;
+}
+
+.button-cell {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.admin-route-wrapper {
+    align-items: start !important;
+}

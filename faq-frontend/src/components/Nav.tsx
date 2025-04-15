@@ -8,9 +8,9 @@ export default function Nav() {
     <nav>
       <ul class="container flex items-center p-3 text-gray-200">
         <li class={`selected-link ${active("/")} mx-1.5 sm:mx-6`}>
-          <a href="/">Home</a>
+          <a href="/admin/dashboard">Home</a>
         </li>
-        <li class={`selected-link ${active("/about")} mx-1.5 sm:mx-6`}>
+        <li class={`selected-link ${active("/add-faq")} mx-1.5 sm:mx-6`}>
           <a href="/about">Admin</a>
         </li>
       </ul>
