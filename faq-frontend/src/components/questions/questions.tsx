@@ -46,13 +46,13 @@ export default function Questions() {
                                 <td class="button-cell">
                                     <button
                                         class="faq-button"
-                                        onClick={() => console.log("FAQ erstellen für:", q.question)}
+                                        onClick={() => navigate("/admin/faqs?query=" +  q.question + "&questionId=" + q.id)}
                                     >
                                         FAQ erstellen
                                     </button>
                                     <button
                                         class="faq-button"
-                                        onClick={() => console.log("Frage Löschen:", q.question)}
+                                        onClick={() => dataStore.deleteQuestion(q.id) }
                                     >
                                         Frage Löschen
                                     </button>

@@ -66,7 +66,11 @@ export default function Home() {
 
         {!isLoading() && (faqs() ?? []).length > 0 &&
           faqs()!.map((faq) => (
-            <A class="faq-link" href={`/faq/${faq.id}`}>
+            <A
+              class="faq-link"
+              href={`/faq/${faq.id}`}
+              state={{ faq }}
+            >
               <SearchResult text={faq.question} />
             </A>
           ))

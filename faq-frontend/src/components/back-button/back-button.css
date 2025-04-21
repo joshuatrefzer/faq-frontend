@@ -9,3 +9,7 @@
     background-color: grey;
     box-shadow: 1px 1px 5px rgb(56, 56, 56);
 }
+
+.back-button {
+    border: grey 1px solid;
+}

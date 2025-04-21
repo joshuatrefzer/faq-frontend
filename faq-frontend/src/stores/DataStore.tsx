@@ -1,37 +1,48 @@
 import { createStore } from "solid-js/store";
 import { authStore } from "./AuthStore";
+import { createMemo, createSignal } from "solid-js";
 
-// Definiere die Typen
-interface Question {
+export interface Question {
+  id:number;
   question: string;
   createdAt: string;
 }
 
-interface Tag {
+export interface Tag {
   id: number;
   name: string;
 }
 
-interface FAQ {
+export interface FAQ {
   id: number;
   question: string;
   answer: string;
 }
 
 const [state, setState] = createStore({
-  tags: [] as Tag[],   // Tag Typ verwenden
-  questions: [] as Question[],   // Question Typ verwenden
-  faqs: [] as FAQ[],   // FAQ Typ verwenden
+  tags: [] as Tag[],
+  questions: [] as Question[],
+  faqs: [] as FAQ[],
   loading: false,
   error: null as string | null,
   success: false
 });
 
+const [selectedTagNames, setSelectedTagNames] = createSignal<string[]>([]);
+
+const tagNamesWithoutSelectedOnes = createMemo(() => {
+  const allTags = state.tags;
+  return allTags
+    .filter(tag => !selectedTagNames().includes(tag.name)) 
+    .map(tag => tag.name); 
+});
+
+
+
 async function loadAllData() {
   setState({ loading: true, error: null });
 
   const token = authStore.getToken();
-  console.log(token);
 
   if (!token) {
     setState({ error: "Kein Token vorhanden" });
@@ -87,10 +98,64 @@ async function loadAllData() {
     setState({ error: (err as Error).message });
   } finally {
     setTimeout(() => {
-        setState({ loading: false });
+      setState({ loading: false });
     }, 1200);
   }
 }
+
+
+async function createNewTag(name: string) {
+  const token = authStore.getToken();
+
+  if (!token) {
+    setState({ error: "Kein Token vorhanden" });
+    setState({ loading: false });
+    return;
+  }
+
+  const response = await fetch("http://joshuatrefzer-backend.com:8080/tags?name=" + name, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  })
+
+  if (!response.ok) {
+    throw new Error("Fehler beim Laden des neuen Tags");
+  }
+
+  const newTag = await response.json();
+  setState("tags", (tags) => [...tags, newTag]);
+}
+
+async function deleteQuestion(id: number) {
+  const token = authStore.getToken();
+
+  if (!token) {
+    setState({ error: "Kein Token vorhanden" });
+    return;
+  }
+
+  const response = await fetch(`http://joshuatrefzer-backend.com:8080/question/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Fehler beim Löschen der Frage");
+  }
+
+  setState("questions", (questions) => questions.filter(q => q.id !== id));
+}
+
+
+
 
 function reset() {
   setState({
@@ -107,4 +172,9 @@ export const dataStore = {
   state,
   loadAllData,
   reset,
+  createNewTag,
+  selectedTagNames,
+  setSelectedTagNames,
+  tagNamesWithoutSelectedOnes,
+  deleteQuestion
 };

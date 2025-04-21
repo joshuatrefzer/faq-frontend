@@ -12,3 +12,27 @@ form {
     display: flex;
     align-items: center;
 }
+
+.close {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: flex;
+    width: 15px;
+    height: 15px;
+    background-color: #e74c3c;
+    cursor: pointer;
+    transition: all ease-in-out 200ms;
+    border-radius: 50%;
+    padding: 2px;
+    box-sizing: content-box;
+
+  }
+  
+  .close:hover {
+    opacity: 0.8;
+  }
+  
+  .tag {
+    position: relative;
+  }

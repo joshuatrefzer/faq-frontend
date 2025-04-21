@@ -1,7 +1,8 @@
 import { createSignal, Show } from "solid-js";
 import "./tag-select.css";
+import { dataStore, Tag } from "~/stores/DataStore";
 
-export default function TagSelect(props: { onSelect: (tag: { id: number, tagname: string }) => void }) {
+export default function TagSelect(props: { onSelect: (tagName: string) => void }) {
   const [searchTerm, setSearchTerm] = createSignal("");
   const [showDropdown, setShowDropdown] = createSignal(false);
 
@@ -11,25 +12,19 @@ export default function TagSelect(props: { onSelect: (tag: { id: number, tagname
     setShowDropdown(value.length > 0);
   }
 
-  const items = [
-    { id: 1, tagname: "About" },
-    { id: 2, tagname: "Base" },
-    { id: 3, tagname: "Blog" },
-    { id: 4, tagname: "Contact" },
-    { id: 5, tagname: "Custom" },
-    { id: 6, tagname: "Support" },
-    { id: 7, tagname: "Tools" },
-    { id: 7, tagname: "Tools" },
-    { id: 7, tagname: "Tools" },
-    { id: 7, tagname: "Tools" },
-    { id: 7, tagname: "Tools" },
-    { id: 7, tagname: "Tools" },
-    { id: 7, tagname: "Tools" },
-    { id: 7, tagname: "Tools" },
-  ];
+  function createNewTag(name: string) {
+    const current = dataStore.selectedTagNames();
+    if (!current.includes(name)) {
+      dataStore.setSelectedTagNames([...current, name]);
+    }
 
-  const filteredItems = () =>
-    items.filter((item) => item.tagname.toLowerCase().includes(searchTerm()));
+    dataStore.createNewTag(name);
+    setShowDropdown(false);
+  }
+
+
+  const filteredTags = () =>
+    dataStore.tagNamesWithoutSelectedOnes().filter((name) => name.toLowerCase().includes(searchTerm()));
 
   return (
     <div class="tag-select-container">
@@ -39,20 +34,24 @@ export default function TagSelect(props: { onSelect: (tag: { id: number, tagname
         id="myInput"
         onKeyUp={filterFunction}
       />
-      
+
       <Show when={showDropdown()}>
         <div id="myDropdown" class="dropdown-content">
-          {filteredItems().length > 0 ? (
-            filteredItems().map((item) => (
-              <div 
-                class="dropdown-item" 
-                onClick={() => props.onSelect(item)} 
+          {filteredTags().length > 0 ? (
+            filteredTags().map((tagName) => (
+              <div
+                class="dropdown-item"
+                onClick={ () => {
+                    props.onSelect(tagName);
+                    setShowDropdown(false);
+                  }
+                }
               >
-                {item.tagname}
+                {tagName}
               </div>
             ))
           ) : (
-            <button type="button" class="add-tag-button">
+            <button onClick={() => createNewTag(searchTerm())} type="button" class="add-tag-button">
               "{searchTerm()}" als neues Schlagwort
             </button>
           )}
