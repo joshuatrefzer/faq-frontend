@@ -4,6 +4,7 @@ import BackButton from "../back-button/back-button";
 import Loader from "../loader/loader";
 import "./faq.css";
 import type { FAQ } from "../home/Home";
+import CopyUrlButton from "../copy-url-button/copy-url";
 
 export function getInitialProps() {
   return async (props: { id: number }) => {
@@ -47,12 +48,20 @@ export default function FAQ() {
             <>
               <strong>{item().question}</strong>
               <div class="solution-container">
-                <p>{item().answer}</p>
+              <p>{item().answer}</p>
+                <Show when={item().link}>
+                    <a class="video-container" href={item().link} target="_blank" rel="noopener noreferrer">
+                      <img src="/video.png" alt="Video" />
+                      <span>Dieses Video kann dir weiterhelfen</span>
+                    </a>
+                </Show>
+            
               </div>
             </>
           )}
         </Show>
       </Suspense>
+      <CopyUrlButton></CopyUrlButton>
     </div>
   );
 }

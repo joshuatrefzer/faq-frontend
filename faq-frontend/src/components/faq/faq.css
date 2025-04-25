@@ -8,11 +8,13 @@
     justify-items: center;
     color: white;
     animation: appear 500ms ease-in-out;
+    position: relative;
 }
 
 strong {
     font-size: larger;
     font-weight: 500;
+    text-align: center;
 }
 
 p {
@@ -20,9 +22,50 @@ p {
 }
 
 .solution-container {
-    height: calc(100% - 20px);
+    height: calc(100% - 80px);
     margin-bottom: 20px;
     overflow-y: scroll;
     box-sizing: border-box;
     padding: 20px;
+    overflow-y: scroll;
+}
+
+.copy-url {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 15px;
+}
+
+.video-container img{
+    height: 50px;
+    animation: pumping infinite 1s;
+}
+
+@keyframes pumping {
+    0% {
+        scale: 1;
+    }
+
+    50% {
+        scale: 1.1;
+    }
+
+    100% {
+        scale: 1;
+    }
+}
+
+.video-container span {
+    font-size: 10px;
+    font-weight: 200;
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+    border: 0;
 }
