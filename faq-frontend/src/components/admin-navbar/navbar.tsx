@@ -2,6 +2,7 @@ import { A } from "@solidjs/router";
 import "./navbar.css"
 import { Show } from "solid-js";
 import { authStore } from "~/stores/AuthStore";
+import { dataStore } from "~/stores/DataStore";
 
 
 export default function NavBar() {
@@ -14,9 +15,7 @@ export default function NavBar() {
                     <A class="hover" href="/admin/questions">Anfragen</A>
                 </div>
                 <div class="right">
-                    <div class="user-icon hover">
-                        <img src="/user.svg" alt="" />
-                    </div>
+                <img onclick={() => dataStore.loadAllData() } class="reload" src="/reload.png" alt="" />
                 </div>
             </nav>
             </Show>

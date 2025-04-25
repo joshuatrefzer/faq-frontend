@@ -8,7 +8,7 @@ export type FAQ = {
   id: number;
   question: string;
   answer: string;
-  tags?: string[];
+  link?:string;
 };
 
 async function fetchFaqs(query: string): Promise<FAQ[]> {

@@ -16,6 +16,20 @@ a {
     transition: all 200ms ease-in-out;
 }
 
+.reload {
+    height: 40px;
+    padding: 5px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: all 300ms ease-in-out;
+    cursor: pointer;
+}
+
+.reload:hover {
+    opacity: 0.8;
+    transform: rotate(180deg);
+}
+
 .left {
     width: 50%;
     height: 100%;
@@ -34,6 +48,7 @@ a {
     height: 100%;
     box-sizing: border-box;
     margin-right: 10px;
+    gap: 10px;
 }
 
 .user-icon {

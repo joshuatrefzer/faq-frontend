@@ -1,0 +1,49 @@
+.table-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden; 
+    height: 65%;
+}
+
+.dashboard-infos {
+    height:35%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dashboard-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 50px;
+    width: 20%;
+    height: 70%;
+    background-color: rgb(35, 35, 35);
+    box-shadow: 1px 1px 10px rgb(75, 75, 75);
+}
+
+.bad-number {
+    color: red !important;
+}
+
+.dashboard-name {
+    color: white;
+    font-weight: 200;
+    font-size: 15px;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.dashboard-number {
+    font-size: 70px;
+    width: 100%;
+    text-align: center;
+    color: rgb(62, 210, 146);
+}
+
+
+
