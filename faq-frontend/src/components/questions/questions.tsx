@@ -14,7 +14,7 @@ export default function Questions() {
         }
     });
 
-  
+
 
     function transformDate(dateString: string) {
         const date = new Date(dateString);
@@ -29,43 +29,45 @@ export default function Questions() {
 
     return (
         <div class="admin-route-wrapper items-start ">
-            <table class="question-table">
-                <thead>
-                    <tr>
-                        <th>Frage</th>
-                        <th>Erstellt am</th>
-                        <th>Aktion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {dataStore.state.questions.length > 0 ? (
-                        dataStore.state.questions.map((q) => (
-                            <tr>
-                                <td style={{ width: "70%" }}>{q.question}</td>
-                                <td>{transformDate(q.createdAt)}</td>
-                                <td class="button-cell">
-                                    <button
-                                        class="faq-button"
-                                        onClick={() => navigate("/admin/faqs?query=" +  q.question + "&questionId=" + q.id)}
-                                    >
-                                        FAQ erstellen
-                                    </button>
-                                    <button
-                                        class="faq-button"
-                                        onClick={() => dataStore.deleteQuestion(q.id) }
-                                    >
-                                        Frage Löschen
-                                    </button>
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
+            <div class="question-table-wrapper">
+                <table class="question-table">
+                    <thead>
                         <tr>
-                            <td colSpan={3}>Keine Fragen verfügbar</td>
+                            <th>Frage</th>
+                            <th>Erstellt am</th>
+                            <th>Aktion</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {dataStore.state.questions.length > 0 ? (
+                            dataStore.state.questions.map((q) => (
+                                <tr>
+                                    <td style={{ width: "70%" }}>{q.question}</td>
+                                    <td>{transformDate(q.createdAt)}</td>
+                                    <td class="button-cell">
+                                        <button
+                                            class="faq-button"
+                                            onClick={() => navigate("/admin/faqs?query=" + q.question + "&questionId=" + q.id)}
+                                        >
+                                            FAQ erstellen
+                                        </button>
+                                        <button
+                                            class="faq-button"
+                                            onClick={() => dataStore.deleteQuestion(q.id)}
+                                        >
+                                            Frage Löschen
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={3}>Keine Fragen verfügbar</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

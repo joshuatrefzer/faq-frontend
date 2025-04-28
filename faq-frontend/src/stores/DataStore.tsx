@@ -21,6 +21,9 @@ export interface FAQ {
   tags?: Tag[];
 }
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
+
 const [state, setState] = createStore({
   tags: [] as Tag[],
   questions: [] as Question[],
@@ -54,7 +57,7 @@ async function loadAllData() {
 
   try {
     const [questionsRes, tagsRes, faqsRes] = await Promise.all([
-      fetch("http://joshuatrefzer-backend.com:8080/question", {
+      fetch(apiUrl + '/question', {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,7 +65,7 @@ async function loadAllData() {
         },
         credentials: "include",
       }),
-      fetch("http://joshuatrefzer-backend.com:8080/tags", {
+      fetch(apiUrl + '/tags', {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -70,7 +73,7 @@ async function loadAllData() {
         },
         credentials: "include",
       }),
-      fetch("http://joshuatrefzer-backend.com:8080/faq", {
+      fetch(apiUrl + '/faq', {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -115,7 +118,7 @@ async function createNewTag(name: string) {
     return;
   }
 
-  const response = await fetch("http://joshuatrefzer-backend.com:8080/tags?name=" + name, {
+  const response = await fetch(apiUrl + '/tags?name=' + name, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -140,7 +143,7 @@ async function deleteQuestion(id: number) {
     return;
   }
 
-  const response = await fetch(`http://joshuatrefzer-backend.com:8080/question/${id}`, {
+  const response = await fetch(apiUrl + `/question/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -167,7 +170,7 @@ async function addFAQ(faq: Partial<FAQ>) {
   setState({ loading: true, error: null, success: false });
 
   try {
-    const faqResponse = await fetch("http://joshuatrefzer-backend.com:8080/faq", {
+    const faqResponse = await fetch(apiUrl + '/faq', {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -186,7 +189,7 @@ async function addFAQ(faq: Partial<FAQ>) {
     const selectedTags = selectedTagNames();
     if (selectedTags.length > 0) {
       const tagsParam = selectedTags.map(encodeURIComponent).join(",");
-      const tagResponse = await fetch(`http://joshuatrefzer-backend.com:8080/faq/${newFAQ.id}/tags?tags=${tagsParam}`, {
+      const tagResponse = await fetch(apiUrl + `/faq/${newFAQ.id}/tags?tags=${tagsParam}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -225,7 +228,7 @@ async function editFAQ(faq: FAQ) {
   setState({ loading: true, error: null, success: false });
 
   try {
-    const faqResponse = await fetch("http://joshuatrefzer-backend.com:8080/faq/" + faq.id, {
+    const faqResponse = await fetch(apiUrl + '/faq/' + faq.id, {
       method: "PUT", 
       headers: {
         Authorization: `Bearer ${token}`,
@@ -245,7 +248,7 @@ async function editFAQ(faq: FAQ) {
     
     if (selectedTags.length > 0) {
       const tagsParam = selectedTags.map(encodeURIComponent).join(",");
-      const tagResponse = await fetch(`http://joshuatrefzer-backend.com:8080/faq/${newFAQ.id}/tags?tags=${tagsParam}`, {
+      const tagResponse = await fetch(apiUrl + `/faq/${newFAQ.id}/tags?tags=${tagsParam}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

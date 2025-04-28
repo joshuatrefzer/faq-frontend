@@ -90,7 +90,7 @@ function FAQList() {
       <Show when={showConfirmPopup()}>
         <div class="popup-backdrop">
           <div class="popup">
-            <p>Möchtest du dieses FAQ wirklich löschen?</p>
+            <p>Möchtest du diese FAQ wirklich löschen?</p>
             <div class="popup-actions">
               <button class="faq-button" onClick={cancelDelete}>Abbrechen</button>
               <button class="faq-button danger" onClick={deleteFAQ}>Ja, löschen</button>

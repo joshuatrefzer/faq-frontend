@@ -1,9 +1,19 @@
+.question-table-wrapper {
+    max-height: 80dvh; 
+    overflow-y: scroll;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-self: flex-start;
+    scroll-behavior: smooth;
+}
+
+
 .question-table {
     margin-top: 50px;
     width: 90%;
-    border-collapse: collapse;
     color: white;
-    border-radius: 20px;
 }
 
 .question-table th,
@@ -13,8 +23,24 @@
     text-align: left;
 }
 
+.question-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #222222;
+    z-index: 2;
+}
+
 .question-table th {
     background-color: #222222;
+}
+
+.question-table tbody tr {
+    background-color: #333333;
+}
+
+.question-table tbody tr:hover {
+    transition: all 300ms ease-in-out;
+    background-color: #444444;
 }
 
 .admin-route-wrapper {
@@ -25,12 +51,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    gap: 8px;
 }
 
 button {
     font-size: 12px;
-}
-
-.admin-route-wrapper {
-    align-items: start !important;
 }

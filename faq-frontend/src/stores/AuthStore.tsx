@@ -1,6 +1,9 @@
 import { createStore } from "solid-js/store";
 import { dataStore } from "./DataStore";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
+
 const [state, setState] = createStore({
     token: null as string | null,
     loading: false,
@@ -12,7 +15,7 @@ const [state, setState] = createStore({
 async function signUp(username: string, password: string) {
     setState({ loading: true, error: null, success: false });
     try {
-        const res = await fetch("http://joshuatrefzer-backend.com:8080/auth/signup", {
+        const res = await fetch(apiUrl + '/auth/signup', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
@@ -34,7 +37,7 @@ async function signUp(username: string, password: string) {
 async function login(username: string, password: string) {
     setState({ loading: true, error: null, success: false });
     try {
-        const res = await fetch("http://joshuatrefzer-backend.com:8080/auth/login", {
+        const res = await fetch( apiUrl + '/auth/login', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
