@@ -61,7 +61,7 @@ export default function FAQ() {
           )}
         </Show>
       </Suspense>
-      <CopyUrlButton></CopyUrlButton>
+      <CopyUrlButton id={id}></CopyUrlButton>
     </div>
   );
 }

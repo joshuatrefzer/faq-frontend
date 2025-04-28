@@ -1,11 +1,17 @@
 import { createSignal } from "solid-js";
 
-function CopyUrlButton() {
+interface copyButtonId {
+  id: number;
+}
+
+
+function CopyUrlButton(props:copyButtonId) {
   const [isCopied, setIsCopied] = createSignal(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const copyUrlToClipboard = async () => {
     try {
-      const currentUrl = window.location.href;
+      const currentUrl = apiUrl + "/faq/" + props.id;
       await navigator.clipboard.writeText(currentUrl);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 5000);

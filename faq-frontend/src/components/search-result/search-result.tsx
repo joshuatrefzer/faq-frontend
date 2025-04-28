@@ -1,7 +1,7 @@
 
 interface SearchResultProps {
     text: string;
-  }
+}
   
   export default function SearchResult(props: SearchResultProps) {
     return (
