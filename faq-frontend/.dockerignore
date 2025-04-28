@@ -3,6 +3,5 @@ node_modules
 .vscode
 dist
 build
-.env
 Dockerfile
 docker-compose.yml
