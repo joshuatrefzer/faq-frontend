@@ -48,7 +48,7 @@ export default function FAQ() {
             <>
               <strong>{item().question}</strong>
               <div class="solution-container">
-              <p>{item().answer}</p>
+              <p class="solution-text">{item().answer}</p>
                 <Show when={item().link}>
                     <a class="video-container" href={item().link} target="_blank" rel="noopener noreferrer">
                       <img src="/video.png" alt="Video" />
