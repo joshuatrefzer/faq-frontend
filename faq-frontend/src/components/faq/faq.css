@@ -30,7 +30,9 @@ p {
     padding: 20px;
     overflow-y: scroll;
     display: flex;
-    justify-content: center;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
 }
 
 .copy-url {
