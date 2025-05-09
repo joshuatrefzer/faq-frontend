@@ -1,6 +1,7 @@
 import { createStore } from "solid-js/store";
 import { authStore } from "./AuthStore";
 import { createMemo, createSignal } from "solid-js";
+import { toastService } from "~/services/toastService";
 
 export interface Question {
   id: number;
@@ -153,10 +154,12 @@ async function deleteQuestion(id: number) {
   });
 
   if (!response.ok) {
+    toastService.triggerToast("Fehler beim Löschen der Frage ⚠︎", "error");
     throw new Error("Fehler beim Löschen der Frage");
   }
 
   setState("questions", (questions) => questions.filter(q => q.id !== id));
+  toastService.triggerToast("Frage erfolgreich gelöscht! 🗑️ ", "success");
 }
 
 async function addFAQ(faq: Partial<FAQ>) {
@@ -210,6 +213,8 @@ async function addFAQ(faq: Partial<FAQ>) {
 
     setState({ success: true });
     setSelectedTagNames([]);
+    toastService.triggerToast("FAQ erfolgreich erstellt! 🎉", "success");
+
   } catch (err) {
     setState({ error: (err as Error).message });
   } finally {
@@ -239,6 +244,7 @@ async function editFAQ(faq: FAQ) {
     });
 
     if (!faqResponse.ok) {
+      toastService.triggerToast("Fehler beim Ändern der FAQ ⚠︎", "error");
       throw new Error("Fehler beim Ändern des FAQ");
     }
 
@@ -258,6 +264,7 @@ async function editFAQ(faq: FAQ) {
       });
 
       if (!tagResponse.ok) {
+        toastService.triggerToast("Fehler beim Zuweisen der Tags ⚠︎", "error");
         throw new Error("Fehler beim Zuweisen der Tags");
       }
 
@@ -274,16 +281,45 @@ async function editFAQ(faq: FAQ) {
     }
 
     setState({ success: true });  
-    setSelectedTagNames([]);     
+    setSelectedTagNames([]);
+    toastService.triggerToast("Erfolgreich editiert 🎉", "success");
+     
 
   } catch (err) {
     setState({ error: (err as Error).message });
+    toastService.triggerToast("Fehler beim Editieren ⚠︎", "error");
+
   } finally {
     setState({ loading: false });
   }
 }
 
+async function deleteFaq(id: number) {
+  const token = authStore.getToken();
 
+  if (!token) {
+    setState({ error: "Kein Token vorhanden" });
+    toastService.triggerToast("Kein Token vorhanden ❌", "error");
+    return;
+  }
+
+  const response = await fetch(`${apiUrl}/faq/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    toastService.triggerToast("Fehler beim Löschen des FAQ ⚠︎", "error");
+    throw new Error("Fehler beim Löschen des FAQ");
+  }
+
+  setState("faqs", (faqs) => faqs.filter(f => f.id !== id));
+  toastService.triggerToast("FAQ erfolgreich gelöscht! 🗑️", "success");
+}
 
 
 function reset() {
@@ -307,5 +343,6 @@ export const dataStore = {
   tagNamesWithoutSelectedOnes,
   deleteQuestion,
   addFAQ,
-  editFAQ
+  editFAQ,
+  deleteFaq
 };
