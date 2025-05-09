@@ -4,6 +4,7 @@ import { createEffect, Show } from "solid-js";
 import { authStore } from "~/stores/AuthStore";
 import { dataStore } from "~/stores/DataStore";
 import Loader from "../loader/loader";
+import Toast from "../toast/toast";
 
 export default function Questions() {
 
@@ -30,6 +31,7 @@ export default function Questions() {
 
     return (
         <Show when={!dataStore.state.loading} fallback={<Loader />}>
+            <Toast></Toast>
 
             <div class="admin-route-wrapper items-start ">
                 <div class="question-table-wrapper">
