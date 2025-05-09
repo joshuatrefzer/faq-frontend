@@ -47,6 +47,7 @@ export default function FAQ() {
         <Show when={faq()}>
           {(item) => (
             <>
+
               <strong>{item().question}</strong>
               <div class="solution-container">
 
