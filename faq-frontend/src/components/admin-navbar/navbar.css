@@ -62,3 +62,14 @@ a {
     padding: 10px;
 }
 
+
+
+@media (max-width: 900px) {
+    .left {
+        width: auto;
+    }
+
+    .right {
+       justify-content: end;
+    }
+}

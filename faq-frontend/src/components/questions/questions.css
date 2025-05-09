@@ -1,5 +1,5 @@
 .question-table-wrapper {
-    max-height: 80dvh; 
+    max-height: 80dvh;
     overflow-y: scroll;
     width: 100%;
     margin-top: 20px;
@@ -56,4 +56,22 @@
 
 button {
     font-size: 12px;
+}
+
+
+@media (max-width: 900px) {
+
+    .date-cell {
+        display: none;
+    }
+
+    .faq-button {
+        padding: 5px;
+    }
+    .question-cell {
+        max-width: 100px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 }

@@ -5,6 +5,7 @@
 }
 
 form {
+    overflow-y: scroll;
     height: 100%;
     gap: 30px;
     flex-direction: column;
@@ -50,4 +51,16 @@ label {
   
   .tag {
     position: relative;
+  }
+
+
+  @media (max-width: 900px) {
+    form {
+        padding-bottom: 60px;
+    }
+
+    .tag-select-container {
+        flex-direction: column;
+    }
+    
   }

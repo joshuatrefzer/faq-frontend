@@ -37,7 +37,7 @@ export default function Questions() {
                         <thead>
                             <tr>
                                 <th>Frage</th>
-                                <th>Erstellt am</th>
+                                <th class="date-cell" >Erstellt am</th>
                                 <th>Aktion</th>
                             </tr>
                         </thead>
@@ -45,8 +45,8 @@ export default function Questions() {
                             {dataStore.state.questions.length > 0 ? (
                                 dataStore.state.questions.map((q) => (
                                     <tr>
-                                        <td style={{ width: "70%" }}>{q.question}</td>
-                                        <td>{transformDate(q.createdAt)}</td>
+                                        <td class="question-cell" style={{ width: "70%" }}>{q.question}</td>
+                                        <td class="date-cell">{transformDate(q.createdAt)}</td>
                                         <td class="button-cell">
                                             <button
                                                 class="faq-button"

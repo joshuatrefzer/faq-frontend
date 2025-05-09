@@ -6,17 +6,19 @@ type AskQuestionModalProps = {
     onClose: () => void;
 };
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export default function AskQuestionModal(props: AskQuestionModalProps): JSX.Element {
     const [question, setQuestion] = createSignal("");
-    const [feedback, setFeedback] = createSignal(""); // Zustand für Feedback-Nachricht
-    const [isSubmitted, setIsSubmitted] = createSignal(false); // Zustand für abgesendete Frage
+    const [feedback, setFeedback] = createSignal(""); 
+    const [isSubmitted, setIsSubmitted] = createSignal(false); 
 
     const handleSubmit = async () => {
         if (question().trim()) {
             const requestBody = { question: question() };
 
             try {
-                const response = await fetch("http://joshuatrefzer-backend.com:8080/question", {
+                const response = await fetch( apiUrl + "/question", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
