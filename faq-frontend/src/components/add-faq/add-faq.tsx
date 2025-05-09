@@ -6,6 +6,7 @@ import { authStore } from "~/stores/AuthStore";
 import { useNavigate, useSearchParams } from "@solidjs/router";
 import { dataStore, FAQ, Tag } from "~/stores/DataStore";
 import Loader from "../loader/loader";
+import Toast from "../toast/toast";
 
 export default function AddFAQ() {
 
@@ -43,13 +44,16 @@ export default function AddFAQ() {
                 setQuestion(faqToEdit.question);
                 setAnswer(faqToEdit.answer);
                 setLink(faqToEdit.link || "");
-                
+
                 if (faqToEdit.tags) {
-                    let stringArray= faqToEdit.tags?.map( t => t.name);
+                    let stringArray = faqToEdit.tags?.map(t => t.name);
                     dataStore.setSelectedTagNames(stringArray);
                 }
-                
+
             }
+        } else {
+            setEditMode(false);
+            dataStore.setSelectedTagNames([]);
         }
     });
 
@@ -72,7 +76,7 @@ export default function AddFAQ() {
         dataStore.setSelectedTagNames(updatedTags);
     }
 
-    function editFAQ(){
+    function editFAQ() {
         const faqToEdit: FAQ = {
             id: faqToEditId(),
             question: question(),
@@ -116,45 +120,62 @@ export default function AddFAQ() {
 
     return (
         <Show when={!dataStore.state.loading} fallback={<Loader></Loader>}>
+            <Toast></Toast>
             <form onSubmit={submit} class="grid-container">
 
                 <Show when={!editMode()} fallback={<h1>FAQ bearbeiten</h1>}>
                     <h1>FAQ erstellen</h1>
                 </Show>
+                <div class="input-wrapper">
+                    <Show when={!question()} fallback={<label>Die gestellte Frage:</label>}>
+                        <label>Hier kannst du die Frage stellen, die beantwortet werden soll.</label>
+                    </Show>
 
-                <input
-                    required
-                    placeholder="Welche Frage soll beantwortet werden?"
-                    type="text"
-                    value={question()}
-                    onInput={(e) => setQuestion(e.currentTarget.value)}
-                />
-                <input
-                    placeholder="Stelle hier den Link zu einem Video bereit, wenn vorhanden."
-                    type="text"
-                    value={link()}
-                    onInput={(e) => setLink(e.currentTarget.value)}
-                />
+                    <input
+                        required
+                        placeholder="Welche Frage soll beantwortet werden?"
+                        type="text"
+                        value={question()}
+                        onInput={(e) => setQuestion(e.currentTarget.value)}
+                    />
+                </div>
 
-                <textarea
-                    required
-                    placeholder="Beschreibung der Lösung"
-                    value={answer()}
-                    onInput={(e) => setAnswer(e.currentTarget.value)}
-                ></textarea>
-                <div class="tag-select-container">
-                    <TagSelect onSelect={(tag) => selectTag(tag)}></TagSelect>
-                    <div class="tag-container">
-                        {dataStore.selectedTagNames().map((name, index) => (
-                            <div class="tag">
-                                <span>{name}</span>
-                                <img onclick={() => removeTagFromSelection(index)} class="close" src="/close.png" alt="" />
-                            </div>
-                        ))}
+                <div class="input-wrapper">
+                    <label>Hier kannst du den Link zu einem Video bereitstellen.</label>
+                    <input
+                        placeholder="Stelle hier den Link zu einem Video bereit, wenn vorhanden."
+                        type="text"
+                        value={link()}
+                        onInput={(e) => setLink(e.currentTarget.value)}
+                    />
+                </div>
+                <div class="input-wrapper">
+                    <label>Hier kannst du die Lösung für die Frage bereitstellen.</label>
+                    <textarea
+                        required
+                        placeholder="Beschreibung der Lösung"
+                        value={answer()}
+                        onInput={(e) => setAnswer(e.currentTarget.value)}
+                    ></textarea>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Hier kannst du die Schlagwörter für die FAQ festlegen.</label>
+                    <div class="tag-select-container">
+                        <TagSelect onSelect={(tag) => selectTag(tag)}></TagSelect>
+                        <div class="tag-container">
+                            {dataStore.selectedTagNames().map((name, index) => (
+                                <div class="tag">
+                                    <span>{name}</span>
+                                    <img onclick={() => removeTagFromSelection(index)} class="close" src="/close.png" alt="" />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
+
                 <div class="button-container">
-                    <Show when={!editMode()} fallback={ <button type="submit" >Änderungen speichern</button>}>
+                    <Show when={!editMode()} fallback={<button type="submit" >Änderungen speichern</button>}>
                         <button type="submit" >FAQ erstellen</button>
                     </Show>
 

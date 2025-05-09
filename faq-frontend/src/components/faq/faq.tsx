@@ -4,7 +4,6 @@ import BackButton from "../back-button/back-button";
 import Loader from "../loader/loader";
 import "./faq.css";
 import type { FAQ } from "../home/Home";
-import CopyUrlButton from "../copy-url-button/copy-url";
 
 export function getInitialProps() {
   return async (props: { id: number }) => {
@@ -61,7 +60,6 @@ export default function FAQ() {
           )}
         </Show>
       </Suspense>
-      <CopyUrlButton id={id}></CopyUrlButton>
     </div>
   );
 }

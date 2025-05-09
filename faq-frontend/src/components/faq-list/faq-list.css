@@ -20,6 +20,7 @@
   .faq-search-input {
     width: 50%;
     opacity: 1;
+    height: 50px;
   }
   
   .faq-list {

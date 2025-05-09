@@ -29,7 +29,7 @@ function FAQList() {
   function deleteFAQ() {
     const faq = faqToDelete();
     if (faq) {
-      // Achte auf dein deleteFAQ im Store
+      dataStore.deleteFaq(faq.id);
     }
     setFaqToDelete(null);
     setShowConfirmPopup(false);
