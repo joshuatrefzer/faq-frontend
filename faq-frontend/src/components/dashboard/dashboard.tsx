@@ -5,6 +5,7 @@ import { createEffect, createMemo, Show } from "solid-js";
 import Loader from "../loader/loader";
 import { dataStore } from "~/stores/DataStore";
 import FAQList from "~/components/faq-list/faq-list";
+import Toast from "../toast/toast";
 
 export default function Dashboard() {
     const navigate = useNavigate()
@@ -22,6 +23,7 @@ export default function Dashboard() {
 
     return (
         <Show when={!dataStore.state.loading} fallback={<Loader></Loader>}>
+            <Toast></Toast>
             <div class="admin-route-wrapper flex-col">
                 <div class="dashboard-infos">
                     <div class="dashboard-card">

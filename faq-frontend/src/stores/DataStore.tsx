@@ -184,6 +184,7 @@ async function addFAQ(faq: Partial<FAQ>) {
     });
 
     if (!faqResponse.ok) {
+      toastService.triggerToast("Fehler beim Erstellen des FAQ ⚠︎", "error");
       throw new Error("Fehler beim Erstellen des FAQ");
     }
 
@@ -216,6 +217,7 @@ async function addFAQ(faq: Partial<FAQ>) {
     toastService.triggerToast("FAQ erfolgreich erstellt! 🎉", "success");
 
   } catch (err) {
+    toastService.triggerToast("Fehler beim Erstellen des FAQ ⚠︎", "error");
     setState({ error: (err as Error).message });
   } finally {
     setState({ loading: false });

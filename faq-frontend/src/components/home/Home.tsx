@@ -11,10 +11,12 @@ export type FAQ = {
   link?:string;
 };
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 async function fetchFaqs(query: string): Promise<FAQ[]> {
   if (!query) return [];
   const response = await fetch(
-    `http://joshuatrefzer-backend.com:8080/faq/search?query=${encodeURIComponent(query)}`
+     apiUrl + `/faq/search?query=${encodeURIComponent(query)}`
   );
   if (response.status === 204) return [];
   return response.json();

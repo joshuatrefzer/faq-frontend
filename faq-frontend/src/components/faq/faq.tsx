@@ -5,9 +5,11 @@ import Loader from "../loader/loader";
 import "./faq.css";
 import type { FAQ } from "../home/Home";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export function getInitialProps() {
   return async (props: { id: number }) => {
-    const res = await fetch(`http://joshuatrefzer-backend.com:8080/faq/${props.id}`);
+    const res = await fetch(apiUrl + `/faq/${props.id}`);
     if (!res.ok) throw new Error("FAQ nicht gefunden");
     return res.json();
   };
@@ -22,7 +24,7 @@ export default function FAQ() {
   const [faq] = createResource(passedFaq || id, async (id) => {
     if (passedFaq) return passedFaq;
 
-    const res = await fetch(`http://joshuatrefzer-backend.com:8080/faq/${id}`);
+    const res = await fetch(apiUrl + `/faq/${id}`);
     if (!res.ok) throw new Error("FAQ nicht gefunden");
     return res.json();
   });
@@ -47,14 +49,15 @@ export default function FAQ() {
             <>
               <strong>{item().question}</strong>
               <div class="solution-container">
-              <p class="solution-text">{item().answer}</p>
+
+                <p class="solution-text">{item().answer}</p>
                 <Show when={item().link}>
-                    <a class="video-container" href={item().link} target="_blank" rel="noopener noreferrer">
-                      <img src="/video.png" alt="Video" />
-                      <span>Dieses Video kann dir weiterhelfen</span>
-                    </a>
+                  <a class="video-container" href={item().link} target="_blank" rel="noopener noreferrer">
+                    <img src="/video.png" alt="Video" />
+                    <span>Dieses Video <br />kann dir weiterhelfen</span>
+                  </a>
                 </Show>
-            
+
               </div>
             </>
           )}
