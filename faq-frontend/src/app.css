@@ -106,6 +106,18 @@ p {
   transition: all 200ms ease-in-out;
 }
 
+::-webkit-scrollbar {
+  display: none; 
+}
+
+html {
+  scrollbar-width: none; 
+}
+
+body {
+  -ms-overflow-style: none;  
+}
+
 
 @keyframes appear {
   0% {
