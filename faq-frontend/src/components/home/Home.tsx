@@ -37,7 +37,7 @@ export default function Home() {
     clearTimeout(timeout);
 
     if (value.trim()) {
-      setIsLoading(true); // Start Loader
+      setIsLoading(true); 
     }
 
     timeout = setTimeout(() => {
@@ -49,7 +49,7 @@ export default function Home() {
 
   const [faqs] = createResource(debouncedQuery, async (query) => {
     const data = await fetchFaqs(query);
-    setIsLoading(false); // Stop Loader when data is ready
+    setIsLoading(false); 
     return data;
   });
 

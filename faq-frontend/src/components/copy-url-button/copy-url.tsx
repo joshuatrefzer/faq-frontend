@@ -1,32 +1,24 @@
-import { createSignal, createEffect } from "solid-js";
+import { createSignal } from "solid-js";
+import { toastService } from "~/services/toastService";
+import { dataStore } from "~/stores/DataStore";
 
 interface CopyButtonId {
   id: number;
 }
 
+const apiUrl = import.meta.env.VITE_CLIENT_URL;
+
 function CopyUrlButton(props: CopyButtonId) {
   const [isCopied, setIsCopied] = createSignal(false);
 
-  const isBrowser = typeof window !== "undefined"; 
-
-  createEffect(() => {
-    if (isBrowser) {
-      console.log("Clipboard API wird im Browser verwendet.");
-    }
-  });
-
   const copyUrlToClipboard = async () => {
-    if (isBrowser) { 
-      try {
-        const currentUrl = `http://joshuatrefzer-backend.com:3000/faq/${props.id}`;
-        await navigator.clipboard.writeText(currentUrl);
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 5000);
-      } catch (error) {
-        alert("Hier ist ein Fehler passiert..");
-      }
-    } else {
-      console.log("Clipboard-Funktion ist nur im Browser verfügbar!");
+    try {
+      const currentUrl =  apiUrl + `/faq/${props.id}`;
+      await navigator.clipboard.writeText(currentUrl);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 5000);
+    } catch (error) {
+      toastService.triggerToast("Fehler beim Kopieren des Links", "error");
     }
   };
 

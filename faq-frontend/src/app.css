@@ -4,7 +4,7 @@
   --background: rgb(21, 20, 27);
   --input-color: rgb(93, 92, 95);
   --red: rgb(189, 0, 64);
-  --green: rgb(105, 147, 123);
+  --green: rgb(104, 179, 136);
 }
 
 h1 {
@@ -12,6 +12,10 @@ h1 {
   font-size: 40px;
   margin: 10px;
   color: white;
+}
+
+.green {
+  color: var(--green);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,6 +33,7 @@ body {
 button {
   background-color: var(--red);
 }
+
 
 input,
 textarea {

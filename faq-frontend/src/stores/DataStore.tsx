@@ -337,6 +337,7 @@ function reset() {
 
 export const dataStore = {
   state,
+  apiUrl,
   loadAllData,
   reset,
   createNewTag,
@@ -346,5 +347,5 @@ export const dataStore = {
   deleteQuestion,
   addFAQ,
   editFAQ,
-  deleteFaq
+  deleteFaq,
 };

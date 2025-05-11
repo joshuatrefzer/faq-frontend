@@ -4,6 +4,7 @@ import BackButton from "../back-button/back-button";
 import Loader from "../loader/loader";
 import "./faq.css";
 import type { FAQ } from "../home/Home";
+import CopyUrlButton from "../copy-url-button/copy-url";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -31,9 +32,7 @@ export default function FAQ() {
 
   return (
     <div class="faq-container">
-      <div class="w-full">
-        <BackButton />
-      </div>
+      <BackButton />
 
       <Suspense fallback={<Loader />}>
         <Show when={faq.loading}>
@@ -47,10 +46,10 @@ export default function FAQ() {
         <Show when={faq()}>
           {(item) => (
             <>
-
               <strong>{item().question}</strong>
               <div class="solution-container">
 
+                <strong class="green">Lösung:</strong>
                 <p class="solution-text">{item().answer}</p>
                 <Show when={item().link}>
                   <a class="video-container" href={item().link} target="_blank" rel="noopener noreferrer">
@@ -58,12 +57,13 @@ export default function FAQ() {
                     <span>Dieses Video <br />kann dir weiterhelfen</span>
                   </a>
                 </Show>
-
               </div>
             </>
           )}
         </Show>
       </Suspense>
+
+      <CopyUrlButton id={faq()?.id} />
     </div>
   );
 }
