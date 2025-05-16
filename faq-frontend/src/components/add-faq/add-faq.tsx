@@ -127,10 +127,7 @@ export default function AddFAQ() {
                     <h1>FAQ erstellen</h1>
                 </Show>
                 <div class="input-wrapper">
-                    <Show when={!question()} fallback={<label>Die gestellte Frage:</label>}>
-                        <label>Hier kannst du die Frage stellen, die beantwortet werden soll.</label>
-                    </Show>
-
+                    <label>Frage zum beantworten</label>
                     <input
                         required
                         placeholder="Welche Frage soll beantwortet werden?"
@@ -141,7 +138,7 @@ export default function AddFAQ() {
                 </div>
 
                 <div class="input-wrapper">
-                    <label>Hier kannst du den Link zu einem Video bereitstellen.</label>
+                    <label>Video Verlinkung</label>
                     <input
                         placeholder="Stelle hier den Link zu einem Video bereit, wenn vorhanden."
                         type="text"
@@ -150,7 +147,7 @@ export default function AddFAQ() {
                     />
                 </div>
                 <div class="input-wrapper">
-                    <label>Hier kannst du die Lösung für die Frage bereitstellen.</label>
+                    <label>Lösung für die Frage</label>
                     <textarea
                         required
                         placeholder="Beschreibung der Lösung"
@@ -160,7 +157,7 @@ export default function AddFAQ() {
                 </div>
 
                 <div class="input-wrapper">
-                    <label>Hier kannst du die Schlagwörter für die FAQ festlegen.</label>
+                    <label>Schlagwörter für die FAQ</label>
                     <div class="tag-select-container">
                         <TagSelect onSelect={(tag) => selectTag(tag)}></TagSelect>
                         <div class="tag-container">

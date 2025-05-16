@@ -12,13 +12,14 @@
   }
   
   .modal {
-    background: rgb(14, 14, 14);
+    background: rgb(26, 26, 26);
+    border: 1px solid rgb(109, 109, 109);
     padding: 25px;
     border-radius: 20px;
     width: 90%;
     height: auto;
     max-width: 500px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.96);
     position: relative;
     display: flex;
     flex-direction: column;
