@@ -1,4 +1,4 @@
-
+import "./search-result.css"
 interface SearchResultProps {
     text: string;
 }

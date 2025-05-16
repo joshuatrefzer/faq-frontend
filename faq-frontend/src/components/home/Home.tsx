@@ -3,6 +3,7 @@ import "./home.css";
 import SearchResult from "../search-result/search-result";
 import { A } from "@solidjs/router";
 import AskQuestionModal from "../ask-question-modal/ask-question-modal";
+import { removeStopwords } from "~/utils/text";
 
 export type FAQ = {
   id: number;
@@ -32,6 +33,7 @@ export default function Home() {
 
   const handleInput = (e: InputEvent) => {
     const value = (e.target as HTMLInputElement).value;
+
     setQuery(value);
 
     clearTimeout(timeout);
@@ -41,13 +43,18 @@ export default function Home() {
     }
 
     timeout = setTimeout(() => {
-      setDebouncedQuery(value);
+      const cleaned = removeStopwords(value);
+      setDebouncedQuery(cleaned);
     }, 800);
   };
 
   onCleanup(() => clearTimeout(timeout));
 
   const [faqs] = createResource(debouncedQuery, async (query) => {
+    if (query.trim() === "") {
+      return [];
+    }
+
     const data = await fetchFaqs(query);
     setIsLoading(false); 
     return data;
@@ -81,8 +88,8 @@ export default function Home() {
         {!isLoading() && faqs()?.length === 0 && query().trim() && (
           <div class="send-question">
             <p>
-              Leider haben wir dafür noch keine Antwort <br />
-              Formuliere die Frage bitte klar aus, dann werden wir sie hier in Zukunft beantworten.
+              Leider haben wir dafür noch keine Antwort. <br /><br />
+              Du kannst uns aber gerne deine Frage zusenden und wir werden die Lösung zeitnah hier einstellen.
             </p>
             <button onClick={() => setShowModal(true)}>Frage stellen</button>
           </div>
