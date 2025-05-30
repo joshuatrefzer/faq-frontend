@@ -51,10 +51,7 @@ export default function Home() {
   onCleanup(() => clearTimeout(timeout));
 
   const [faqs] = createResource(debouncedQuery, async (query) => {
-    if (query.trim() === "") {
-      return [];
-    }
-
+    
     const data = await fetchFaqs(query);
     setIsLoading(false); 
     return data;
@@ -62,7 +59,8 @@ export default function Home() {
 
   return (
     <div class="container">
-      <img class="h-20" src="/logo.svg" alt="" />
+      <A class="demo-link" href={`/admin`}>Zum Admin</A>
+      <img class="h-20" src="/demo-logo.png" alt="" />
       <input
         class="search-input"
         placeholder="Was würdest du gerne wissen?"

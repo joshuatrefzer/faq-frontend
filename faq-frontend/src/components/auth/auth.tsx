@@ -66,6 +66,9 @@ export default function Authentication() {
                 <div class="display-center">
                     <form class="card" onSubmit={handleLogin}>
                         <h2>LOGIN</h2>
+                        <p>Demo Nutzername: "allowed_user" <br />
+                            Demo Passwort: "testpassword"
+                        </p>
                         <input
                             required
                             placeholder="Benutzername"

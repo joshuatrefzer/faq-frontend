@@ -1,70 +1,70 @@
 .container {
-    height: 100dvh;
-    overflow: hidden;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    align-items: center;
-    grid-template-rows: 1fr 1fr 5fr;
-    animation: appear 500ms ease-in-out;
-    box-sizing: border-box;
-    padding: 30px;
+  height: 100dvh;
+  overflow: hidden;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: 1fr 1fr 5fr;
+  animation: appear 500ms ease-in-out;
+  box-sizing: border-box;
+  padding: 30px;
 }
 
 .search-result-container {
-    position: relative;
-    height: calc(100% - 20px);
-    margin-bottom: 20px;
-    width: 100%;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  position: relative;
+  height: calc(100% - 20px);
+  margin-bottom: 20px;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 
 
 
 @keyframes search-results {
-    0% {
-        opacity: 0;
-        transform: translateY(60%);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(60%);
+  }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0%);
-    }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
 }
 
 .faq-link {
-    margin-bottom: 10px;
-    margin-top: 10px;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 20px;
-    color: white;
-    height: fit-content;
-    background-color: rgb(104, 104, 104);
-    box-shadow: 1px 1px 10px rgb(29, 29, 29);
-    box-sizing: border-box;
-    padding: 10px;
-    border: none;
-    animation: search-results 400ms ease-in-out;
-    border: 1px solid rgb(164, 164, 164);
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 20px;
+  color: white;
+  height: fit-content;
+  background-color: rgb(104, 104, 104);
+  box-shadow: 1px 1px 10px rgb(29, 29, 29);
+  box-sizing: border-box;
+  padding: 10px;
+  border: none;
+  animation: search-results 400ms ease-in-out;
+  border: 1px solid rgb(164, 164, 164);
 }
 
 .search-input {
-    max-width: 600px;
+  max-width: 600px;
 }
 
 .send-question {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .send-question p {
@@ -73,31 +73,41 @@
 }
 
 .loading-points {
-    display: inline-block;
-    width: 1em;
-    text-align: left;
+  display: inline-block;
+  width: 1em;
+  text-align: left;
+}
+
+.demo-link {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+
+.loading-points::after {
+  content: '...';
+  animation: dots 500ms steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: '';
   }
-  
-  .loading-points::after {
+
+  25% {
+    content: '.';
+  }
+
+  50% {
+    content: '..';
+  }
+
+  75% {
     content: '...';
-    animation: dots 500ms steps(4, end) infinite;
   }
-  
-  @keyframes dots {
-    0% {
-      content: '';
-    }
-    25% {
-      content: '.';
-    }
-    50% {
-      content: '..';
-    }
-    75% {
-      content: '...';
-    }
-    100% {
-      content: '';
-    }
+
+  100% {
+    content: '';
   }
-  
+}
