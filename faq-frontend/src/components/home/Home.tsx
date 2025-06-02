@@ -60,7 +60,7 @@ export default function Home() {
   return (
     <div class="container">
       <A class="demo-link" href={`/admin`}>Zum Admin</A>
-      <img class="h-20" src="/demo-logo.png" alt="" />
+      <img class="demo-logo h-20" src="/demo-logo.png" alt="" />
       <input
         class="search-input"
         placeholder="Was würdest du gerne wissen?"
