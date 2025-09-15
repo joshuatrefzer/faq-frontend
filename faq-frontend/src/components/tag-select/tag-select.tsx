@@ -17,14 +17,14 @@ export default function TagSelect(props: { onSelect: (tagName: string) => void }
     if (!current.includes(name)) {
       dataStore.setSelectedTagNames([...current, name]);
     }
-
+    
     dataStore.createNewTag(name);
     setShowDropdown(false);
   }
 
 
   const filteredTags = () =>
-    dataStore.tagNamesWithoutSelectedOnes().filter((name) => name.toLowerCase().includes(searchTerm()));
+    dataStore.tagNamesWithoutSelectedOnes().filter((name) => name.toLowerCase().includes(searchTerm().toLowerCase()));
 
   return (
     <div class="tag-select-container">

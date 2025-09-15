@@ -9,7 +9,7 @@ export type FAQ = {
   id: number;
   question: string;
   answer: string;
-  link?:string;
+  link?: string;
 };
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -17,7 +17,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 async function fetchFaqs(query: string): Promise<FAQ[]> {
   if (!query) return [];
   const response = await fetch(
-     apiUrl + `/faq/search?query=${encodeURIComponent(query)}`
+    apiUrl + `/faq/search?query=${encodeURIComponent(query)}`
   );
   if (response.status === 204) return [];
   return response.json();
@@ -39,7 +39,7 @@ export default function Home() {
     clearTimeout(timeout);
 
     if (value.trim()) {
-      setIsLoading(true); 
+      setIsLoading(true);
     }
 
     timeout = setTimeout(() => {
@@ -51,16 +51,15 @@ export default function Home() {
   onCleanup(() => clearTimeout(timeout));
 
   const [faqs] = createResource(debouncedQuery, async (query) => {
-    
+
     const data = await fetchFaqs(query);
-    setIsLoading(false); 
+    setIsLoading(false);
     return data;
   });
 
   return (
     <div class="container">
-      <A class="demo-link" href={`/admin`}>Zum Admin</A>
-      <img class="demo-logo h-20" src="/demo-logo.png" alt="" />
+      <img class="h-20" src="/logo.svg" alt="" />
       <input
         class="search-input"
         placeholder="Was würdest du gerne wissen?"
