@@ -129,7 +129,8 @@ async function createNewTag(name: string) {
   })
 
   if (!response.ok) {
-    throw new Error("Fehler beim Laden des neuen Tags");
+    toastService.triggerToast("Lade bitte die Daten neu! ⚠︎", "error");
+    throw new Error("Fehler beim Erstellen des Tags");
   }
 
   const newTag = await response.json();
