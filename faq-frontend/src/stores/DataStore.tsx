@@ -18,7 +18,7 @@ export interface FAQ {
   id: number;
   question: string;
   answer: string;
-  link:string;
+  link: string;
   tags?: Tag[];
 }
 
@@ -85,6 +85,7 @@ async function loadAllData() {
     ]);
 
     if (!questionsRes.ok || !tagsRes.ok || !faqsRes.ok) {
+      toastService.triggerToast("Lade bitte die Daten neu! ⚠︎", "error");
       throw new Error("Fehler beim Laden der Daten");
     }
 
@@ -95,9 +96,9 @@ async function loadAllData() {
     ]);
 
     setState({
-      questions,
-      tags,
-      faqs,
+      questions: questions ?? [],
+      tags: tags ?? [],
+      faqs: faqs ?? [],
       success: true,
     });
   } catch (err) {
@@ -237,7 +238,7 @@ async function editFAQ(faq: FAQ) {
 
   try {
     const faqResponse = await fetch(apiUrl + '/faq/' + faq.id, {
-      method: "PUT", 
+      method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -251,10 +252,10 @@ async function editFAQ(faq: FAQ) {
       throw new Error("Fehler beim Ändern des FAQ");
     }
 
-    const newFAQ = await faqResponse.json(); 
+    const newFAQ = await faqResponse.json();
 
     const selectedTags = selectedTagNames();
-    
+
     if (selectedTags.length > 0) {
       const tagsParam = selectedTags.map(encodeURIComponent).join(",");
       const tagResponse = await fetch(apiUrl + `/faq/${newFAQ.id}/tags?tags=${tagsParam}`, {
@@ -283,10 +284,10 @@ async function editFAQ(faq: FAQ) {
       });
     }
 
-    setState({ success: true });  
+    setState({ success: true });
     setSelectedTagNames([]);
     toastService.triggerToast("Erfolgreich editiert 🎉", "success");
-     
+
 
   } catch (err) {
     setState({ error: (err as Error).message });
