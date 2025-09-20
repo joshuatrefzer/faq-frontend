@@ -46,6 +46,7 @@ const tagNamesWithoutSelectedOnes = createMemo(() => {
 
 
 async function loadAllData() {
+  debugger
   setState({ loading: true, error: null });
 
   const token = authStore.getToken();
@@ -89,11 +90,18 @@ async function loadAllData() {
       throw new Error("Fehler beim Laden der Daten");
     }
 
+    const safeJson = async (res: Response) => {
+      if (!res.ok) return null; 
+      const text = await res.text();
+      return text ? JSON.parse(text) : null;
+    };
+
     const [questions, tags, faqs] = await Promise.all([
-      questionsRes.json(),
-      tagsRes.json(),
-      faqsRes.json(),
+      safeJson(questionsRes),
+      safeJson(tagsRes),
+      safeJson(faqsRes),
     ]);
+
 
     setState({
       questions: questions ?? [],
@@ -102,6 +110,8 @@ async function loadAllData() {
       success: true,
     });
   } catch (err) {
+    console.log(err);
+
     setState({ error: (err as Error).message });
   } finally {
     setTimeout(() => {
