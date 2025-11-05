@@ -14,8 +14,7 @@
 
 .search-result-container {
   position: relative;
-  height: calc(90% - 20px);
-  background-color: red;
+  height: calc(100% - 20px);
   margin-bottom: 20px;
   width: 100%;
   overflow-y: scroll;
@@ -23,8 +22,6 @@
   flex-direction: column;
   align-items: center;
 }
-
-
 
 
 @keyframes search-results {
@@ -37,6 +34,11 @@
     opacity: 1;
     transform: translateY(0%);
   }
+}
+
+.home-text {
+  font-size: 15px;
+  max-width: 600px;
 }
 
 .faq-link {
