@@ -49,9 +49,12 @@ export const customerStore = {
     }
 
     timeout = setTimeout(() => {
-      const cleaned = removeStopwords(value);
+      const cleaned = removeStopwords(value.trim());
       setStore("debouncedQuery", cleaned);
+
+      if (!cleaned) setStore("isLoading", false);
     }, 800);
+
   },
 
   get faqs() {
@@ -63,14 +66,46 @@ export const customerStore = {
   },
 };
 
+function computeScore(faq: FAQ, query: string): number {
+  const q = query.toLowerCase();
+  const question = faq.question.toLowerCase();
+  const answer = faq.answer.toLowerCase();
+
+  let score = 0;
+
+  if (question.includes(q)) score += 3;
+  if (answer.includes(q)) score += 1;
+
+  const words = q.split(/\s+/);
+  for (const w of words) {
+    if (!w) continue;
+    if (question.includes(w)) score += 2;
+    if (answer.includes(w)) score += 1;
+  }
+
+  return score;
+}
+
 createEffect(async () => {
-  if (!store.debouncedQuery) {
+  const query = store.debouncedQuery.trim();
+
+  if (!query) {
     setStore({ faqs: [], isLoading: false });
     return;
   }
+
   setStore("isLoading", true);
-  const data = await fetchFaqs(store.debouncedQuery);
-  setStore({ faqs: data, isLoading: false });
+  const data = await fetchFaqs(query);
+
+  const sorted = [...data].sort((a, b) => {
+    const scoreA = computeScore(a, store.query);
+    const scoreB = computeScore(b, store.query);
+    return scoreB - scoreA;
+  });
+
+  setStore({ faqs: sorted, isLoading: false });
 });
+
+
 
 onCleanup(() => clearTimeout(timeout));

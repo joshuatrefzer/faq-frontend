@@ -5,6 +5,7 @@ import AskQuestionModal from "../ask-question-modal/ask-question-modal";
 import { createSignal } from "solid-js";
 import "./home.css";
 import { customerStore, FAQ } from "~/stores/CustomerStore";
+import AsyncLoader from "../loader/async-loader";
 
 export default function Home() {
   const [showModal, setShowModal] = createSignal(false);
@@ -23,17 +24,17 @@ export default function Home() {
       <div class="search-result-container">
 
         {!customerStore.isLoading && customerStore.faqs.length == 0 && 
-        <p class="text-center home-text">Gebe deine Frage, oder auch einzelne Schlagwörter ein, um dein Problem zu lösen.
+        <p class="text-center home-text">Gebe deine Frage, oder auch einzelne Schlagwörter ein.
           <br /><br />
           Falls du keine passende Antwort findest, kannst du uns gerne deine Frage zusenden.
           <br />
-          Wir beantworten die Frage so schnell wie möglich und stellen die Antwort euch hier zur Verfügung.
+          Wir beantworten die Frage so schnell wie möglich und stellen euch die Antwort hier zur Verfügung.
 
           <br /><br />
-          Klicke dafür den Button unten am Bildschirm. <br />⬇️
+          Klicke dafür den Button unten am Bildschirm. <br />
         </p> } 
 
-        {customerStore.isLoading && <p>laden <span class="loading-points">...</span></p>}
+        {customerStore.isLoading && <AsyncLoader/>}
       
         {!customerStore.isLoading && customerStore.faqs.length > 0 &&
           customerStore.faqs.map((faq: FAQ) => (

@@ -21,6 +21,19 @@
     border-radius: 50%;
   }
 
+  .async-loader-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    background-color: none;
+  }
+
   .loader-container {
     height: 100%;
     width: 100%;

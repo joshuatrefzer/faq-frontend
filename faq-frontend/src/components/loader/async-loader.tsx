@@ -1,8 +1,8 @@
 import "./loader.css"
 
-export default function Loader() {
+export default function AsyncLoader() {
     return(
-        <div class="loader-container">
+        <div class="async-loader-container">
             <span class="loader"></span>
         </div>
     );
