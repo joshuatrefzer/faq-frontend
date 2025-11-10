@@ -23,19 +23,16 @@ export default function Home() {
 
       <div class="search-result-container">
 
-        {!customerStore.isLoading && customerStore.faqs.length == 0 && 
-        <p class="text-center home-text">Gebe deine Frage, oder auch einzelne Schlagwörter ein.
-          <br /><br />
-          Falls du keine passende Antwort findest, kannst du uns gerne deine Frage zusenden.
-          <br />
-          Wir beantworten die Frage so schnell wie möglich und stellen euch die Antwort hier zur Verfügung.
+        {!customerStore.isLoading && customerStore.faqs.length == 0 &&
+          <p class="text-center home-text">Gib hier oben deine Frage, oder auch einzelne Schlagwörter ein.
+            <br /><br />
+            Falls du keine passende Antwort findest, sende uns deine Frage unter dem Button "Frage stellen" gerne zu.
+            <br />
+            Wir beantworten diese so schnell wie möglich und stellen euch die Antwort hier zur Verfügung.
+          </p>}
 
-          <br /><br />
-          Klicke dafür den Button unten am Bildschirm. <br />
-        </p> } 
+        {customerStore.isLoading && <AsyncLoader />}
 
-        {customerStore.isLoading && <AsyncLoader/>}
-      
         {!customerStore.isLoading && customerStore.faqs.length > 0 &&
           customerStore.faqs.map((faq: FAQ) => (
             <A class="faq-link" href={`/faq/${faq.id}`} state={{ faq }}>
@@ -55,7 +52,7 @@ export default function Home() {
         )}
       </div>
       <div>
-         <button onClick={() => setShowModal(true)}>Frage stellen</button>
+        <button onClick={() => setShowModal(true)}>Frage stellen</button>
       </div>
 
       {showModal() && <AskQuestionModal onClose={() => setShowModal(false)} />}

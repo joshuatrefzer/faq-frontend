@@ -5,7 +5,7 @@ const stopwords = new Set([
     "ein", "eine", "der", "die", "das", "den", "dem", "mit", "von", "für", "auf", "an",
     "und", "oder", "nicht", "auch", "noch", "zu", "im", "ins", "am", "als", "dass",
     "aber", "wenn", "so", "nur", "schon", "mehr", "sehr", "hier", "da", "dort",
-    "alle", "jeder", "man", "mein", "dein", "sein", "ihr", "unser", "euer",
+    "alle", "jeder", "man", "mein", "dein", "sein", "ihr", "unser", "euer","meinem",
     "dies", "jenes", "welcher", "welche", "welches", "wer", "woher", "wohin",
     "über", "unter", "zwischen", "gegen", "durch", "ohne", "während", "trotz",
     "bis", "seit", "nach", "vor", "bei", "aus", "zu", "ab", "um", "entlang",
