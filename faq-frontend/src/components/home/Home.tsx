@@ -23,7 +23,7 @@ export default function Home() {
 
       <div class="search-result-container">
 
-        {!customerStore.isLoading && customerStore.faqs.length == 0 &&
+        {customerStore.query.length === 0 && 
           <p class="text-center home-text">Gib hier oben deine Frage, oder auch einzelne Schlagwörter ein.
             <br /><br />
             Falls du keine passende Antwort findest, sende uns deine Frage unter dem Button "Frage stellen" gerne zu.
@@ -41,13 +41,15 @@ export default function Home() {
           ))
         }
 
-        {!customerStore.isLoading && customerStore.faqs.length === 0 && customerStore.query.trim() && (
+        {!customerStore.isLoading && customerStore.query.length > 0 && customerStore.query.trim() && (
           <div class="send-question">
-            <p>
-              Leider haben wir dafür noch keine Antwort. <br /><br />
-              Du kannst uns aber gerne deine Frage zusenden und wir werden die Lösung zeitnah hier einstellen.
-            </p>
-            <button onClick={() => setShowModal(true)}>Frage stellen</button>
+            <p class="text-center home-text">
+              Leider haben wir dafür noch keine Antwort. <br />
+              Du kannst uns aber gerne deine Frage zusenden und wir werden die Lösung zeitnah hier einstellen. <br /><br />
+            Klicke dafür einfach den Button "Frage stellen".
+            <br /><br />
+            Wir beantworten diese so schnell wie möglich und stellen euch die Antwort hier zur Verfügung. </p>
+      
           </div>
         )}
       </div>
