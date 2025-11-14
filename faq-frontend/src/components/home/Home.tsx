@@ -10,6 +10,40 @@ import AsyncLoader from "../loader/async-loader";
 export default function Home() {
   const [showModal, setShowModal] = createSignal(false);
 
+
+  function noFaqFound() {
+    const query = customerStore.query.trim();
+    return (
+      query.length > 0 &&
+      !customerStore.isLoading &&
+      customerStore.faqs.length === 0
+    );
+  }
+
+
+  function renderTextWithNoQuery() {
+    return (customerStore.query.length === 0 &&
+      <p class="text-center home-text appear">Gib hier oben deine Frage, oder auch einzelne Schlagwörter ein.
+        <br /><br />
+        Falls du keine passende Antwort findest, sende uns deine Frage unter dem Button "Frage stellen" gerne zu.
+        <br />
+        Wir beantworten diese so schnell wie möglich und stellen euch die Antwort hier zur Verfügung.
+      </p>)
+
+  }
+
+  function renderTextWithNoFaqFound() {
+    return (noFaqFound() &&
+      <div class="send-question appear">
+        <p class="text-center home-text">
+          Leider haben wir dafür noch keine Antwort. <br />
+          Du kannst uns aber gerne deine Frage zusenden und wir werden die Lösung zeitnah hier einstellen.
+          <br /><br />
+          Klicke dafür einfach den Button "Frage stellen". </p>
+      </div>
+    );
+  }
+
   return (
     <div class="container">
       <img class="h-20" src="/logo.svg" alt="" />
@@ -22,14 +56,7 @@ export default function Home() {
       />
 
       <div class="search-result-container">
-
-        {customerStore.query.length === 0 &&
-          <p class="text-center home-text">Gib hier oben deine Frage, oder auch einzelne Schlagwörter ein.
-            <br /><br />
-            Falls du keine passende Antwort findest, sende uns deine Frage unter dem Button "Frage stellen" gerne zu.
-            <br />
-            Wir beantworten diese so schnell wie möglich und stellen euch die Antwort hier zur Verfügung.
-          </p>}
+        {renderTextWithNoQuery()}
 
         {customerStore.isLoading && <AsyncLoader />}
 
@@ -40,19 +67,9 @@ export default function Home() {
             </A>
           ))
         }
-
-        {!customerStore.isLoading && customerStore.query.length > 0 && customerStore.query.trim() && (
-          <div class="send-question">
-            <p class="text-center home-text">
-              Leider haben wir dafür noch keine Antwort. <br />
-              Du kannst uns aber gerne deine Frage zusenden und wir werden die Lösung zeitnah hier einstellen.
-              <br /><br />
-              Klicke dafür einfach den Button "Frage stellen". </p>
-
-          </div>
-        )}
+        {renderTextWithNoFaqFound()}
       </div>
-      <div>
+      <div class="appear">
         <button onClick={() => setShowModal(true)}>Frage stellen</button>
       </div>
 

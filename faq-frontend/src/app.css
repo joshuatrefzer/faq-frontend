@@ -60,7 +60,7 @@ textarea:focus {
 }
 
 .admin-route-wrapper {
-  
+
   width: 100%;
   height: 100%;
   animation: appear 500ms ease-in-out;
@@ -121,6 +121,10 @@ html {
 
 body {
   -ms-overflow-style: none;  
+}
+
+.appear {
+  animation: appear 1s ease-in-out;
 }
 
 
