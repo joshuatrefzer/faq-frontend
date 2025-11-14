@@ -1,6 +1,6 @@
 
 const stopwords = new Set([
-    "ich", "du", "er", "sie", "es", "wir", "ihr", "sie", "machen", "sein", "habe",
+    "ich", "du", "er", "sie", "es", "wir", "ihr", "sie", "machen" , "mache", "sein", "habe",
     "was", "wie", "warum", "wo", "wann", "ist", "sind", "hat", "haben",
     "ein", "eine", "der", "die", "das", "den", "dem", "mit", "von", "für", "auf", "an",
     "und", "oder", "nicht", "auch", "noch", "zu", "im", "ins", "am", "als", "dass",
@@ -12,12 +12,7 @@ const stopwords = new Set([
     "wenn", "weil", "ob", "dann", "doch", "also", "denn", "jedoch", "sondern",
     "sobald", "solange", "sowie", "indem", "damit", "obwohl", "falls", "dein", "sein", "ihr", "euer", "ihrer"
   ]);
-  
-  /**
-   * Remove german stopwords from a given text.
-   * @param input Input text
-   * @returns cleaned text without stopwords
-   */
+
   export function removeStopwords(input: string): string {
     return input
       .toLowerCase()
